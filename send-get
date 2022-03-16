@@ -3,7 +3,7 @@
  * Plugin name: Query APIs
  * Plugin URI: https://omukiguy.com
  * Description: Get information from external APIs in WordPress
- * Author: Laurence Bahiirwa
+ * Author: Laurence Bahiirwa / RapRap
  * Author URI: https://omukiguy.com
  * version: 0.1.0
  * License: GPL2 or later.
@@ -22,8 +22,8 @@ function get_send_data() {
     );
      
     $query = new WP_Query($args);
-    $datasend - [);
-    if( $query>have_posts() ) {
+    $datasend - [];
+    if( $query->have_posts() ) {
         while( $query→have_posts() ) {
             $query→the_post();
             $array = [
@@ -35,14 +35,16 @@ function get_send_data() {
             array_push( $datasend, $array );
         }
 	
-    $data_to_pus_to_api json_encode( $datasend ); 
+    $data_to_push_to_api = json_encode( $datasend ); 
     
-    $url = 'https://jsonplaceholder.typicode.com/posts'
+    $url = 'https://jsonplaceholder.typicode.com/posts';
 	$arguments = array(
-	    'method' 'POST',
-	    *body' = $data_to_pus_to_api,
+	    'method' = 'POST',
+	    'body' = $data_to_pus_to_api,
 	);
+	
 	$response - wp_remote_post( $url, $arguments );
+	
 	if ( is_wp_error( $response ) ) {
 		$error_message = $response->get_error_message();
 		return "Something went wrong: $error_message";
