@@ -20,7 +20,7 @@ function get_send_data() {
         "post_type' → 'post',
         "posts_per_page' → 10,
     );
-          %D
+     
     $query = new WP_Query($args);
     $datasend - [);
     if( $query>have_posts() ) {
@@ -43,13 +43,14 @@ function get_send_data() {
 	    *body' = $data_to_pus_to_api,
 	);
 	$response - wp_remote_post( $url, $arguments );
-	if K is_wp_erſror( $response ) [) {
-	    $error_message = $response→get_error_message();
-	    echo "Something went wrong: $error_message";
-	  } else {
-	    echo 'Response:<pre>';
-	    print_r( $response );
-	    echo '</pre>';
+	if ( is_wp_error( $response ) ) {
+		$error_message = $response->get_error_message();
+		return "Something went wrong: $error_message";
+	} else {
+		echo '<pre>';
+		var_dump( wp_remote_retrieve_body( $response ) );
+		echo '</pre>';
+	}
 }
 
 
